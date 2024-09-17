@@ -1,0 +1,10 @@
+# docker-compose.yml
+version: '3'
+services:
+  sandbox-server:
+    build: .
+    ports:
+      - "3000:3000"
+    # volumes:
+    #   - .:/usr/src/app
+    privileged: true

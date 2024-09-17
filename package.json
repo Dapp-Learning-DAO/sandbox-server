@@ -1,0 +1,20 @@
+{
+  "name": "hardhat-sandbox-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "body-parser": "^1.20.3",
+    "express": "^4.21.0",
+    "hardhat": "^2.22.10",
+    "supertest": "^7.0.0"
+  }
+}
