@@ -55,7 +55,7 @@ export async function executeCode(
   return new Promise((resolve, reject) => {
     exec(command, (error, stdout, stderr) => {
       // Clean up the temporary directory
-      // fs.rmSync(tempDir, { recursive: true, force: true });
+      fs.rmSync(tempDir, { recursive: true, force: true });
 
       if (error) {
         return reject({ error: error.message, stderr });

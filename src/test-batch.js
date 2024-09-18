@@ -1,6 +1,10 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import dotenv from "dotenv";
+
+dotenv.config();
+const PORT = process.env.PORT || 2358;
 
 // Define __dirname manually
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -30,7 +34,7 @@ const createRequest = async (userId) => {
   const startTime = Date.now();
 
   try {
-    const response = await fetch("http://localhost:3000/api/execute", {
+    const response = await fetch(`http://localhost:${PORT}/api/execute`, {
       body: JSON.stringify(req),
       method: "POST",
       headers: {

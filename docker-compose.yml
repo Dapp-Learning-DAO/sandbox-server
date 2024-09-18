@@ -4,7 +4,7 @@ services:
   sandbox-server:
     build: .
     ports:
-      - "3000:3000"
+      - "2358:2358"
     # volumes:
     #   - .:/usr/src/app
     privileged: true

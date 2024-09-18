@@ -2,9 +2,12 @@
 import express from "express";
 import bodyParser from "body-parser";
 import routes from "./routes.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const app = express();
-const PORT = process.env.PORT || 3000;
+export const PORT = process.env.PORT || 2358;
 
 // Middleware to parse JSON request bodies
 app.use(bodyParser.json());
