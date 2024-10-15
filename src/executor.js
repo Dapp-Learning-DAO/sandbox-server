@@ -18,6 +18,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
  * @returns {Promise<ExecuteRes>} - A promise that resolves when the execution is complete.
  * ExecuteRes: {
  *  status: 0 未执行 ｜ 1 compile 成功 ｜ 2 compile 失败 ｜ 3 test 成功 ｜ 4 test 失败 | 5 run 成功 | 6 run 失败
+ *  compile_res: { stdout?: string, stderr?: string },
+ *  test_res: { stdout?: string, stderr?: string },
+ *  run_res: { stdout?: string, stderr?: string },
  * }
  */
 export function executeCode(
