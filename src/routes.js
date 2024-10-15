@@ -8,21 +8,17 @@ const router = express.Router();
 // POST route to handle code submissions
 router.post("/execute", async (req, res) => {
   try {
-    const { userId, language, contractSourceCode, testSourceCode } = req.body;
-    console.log("/execute req", JSON.stringify({ language, contractSourceCode, testSourceCode }));
+    const { userId, language, files, ifRun, ifTest } = req.body;
+    // console.log(
+    //   "/execute req",
+    //   JSON.stringify({ userId, language, files, ifRun, ifTest })
+    // );
 
-    if (!language || !contractSourceCode) {
-      return res
-        .status(400)
-        .json({ error: "Language and contractSourceCode are required" });
+    if (!language || !files) {
+      return res.status(400).json({ error: "Language and files" });
     }
 
-    const result = await executeCode(
-      userId,
-      language,
-      contractSourceCode,
-      testSourceCode
-    );
+    const result = await executeCode(userId, language, files, ifRun, ifTest);
     res.json(result);
   } catch (error) {
     console.log(error);

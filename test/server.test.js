@@ -16,23 +16,24 @@ let serverProcess;
 
 // Function to create a single request
 const createRequest = async (userId) => {
+  const contract_source_code = fs
+    .readFileSync(path.resolve(__dirname, "../test/lib/contract.sol"), "utf8")
+    .replace("uint256 public a = 100;", `uint256 public a = ${100 * userId};`);
+  const test_source_code = fs
+    .readFileSync(
+      path.resolve(__dirname, "../test/lib/contract-test.js"),
+      "utf8"
+    )
+    .replace(/100/g, `${100 * userId}`);
   const req = {
     userId: `userId${userId}`,
     language: "hardhat",
-    contractSourceCode: fs
-      .readFileSync(path.resolve(__dirname, "../test/lib/contract.sol"), "utf8")
-      .replace(
-        "uint256 public a = 100;",
-        `uint256 public a = ${100 * userId};`
-      ),
-    testSourceCode: fs
-      .readFileSync(
-        path.resolve(__dirname, "../test/lib/contract-test.js"),
-        "utf8"
-      )
-      .replace(/100/g, `${100 * userId}`),
+    files: [
+      { target_path: "contracts/contract.sol", contract_source_code },
+      { target_path: "test/contract.test.js", test_source_code },
+    ],
+    ifTest: true,
   };
-  // console.log(req);
 
   const startTime = Date.now();
 
@@ -85,11 +86,11 @@ describe("Hardhat API Server", function () {
   it("execute one user", (done) => {
     createRequest(1)
       .then((res) => {
-        console.log(res);
-        expect(res.stdout, "should compile successfully.").to.include(
+        expect(res.status).to.be.eq(3);
+        expect(res.compile_res.stdout, "should compile successfully.").to.include(
           "Compiled 1 Solidity file successfully"
         );
-        expect(res.stdout, "should all test case pass.").to.include(
+        expect(res.test_res.stdout, "should all test case pass.").to.include(
           "1 passing"
         );
         done();
@@ -122,5 +123,5 @@ describe("Hardhat API Server", function () {
 });
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
