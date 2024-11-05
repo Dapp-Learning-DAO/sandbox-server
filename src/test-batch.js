@@ -7,7 +7,7 @@ dotenv.config();
 const PORT = process.env.PORT || 2358;
 const DOMAIN = process.env.DOMAIN || `localhost`;
 // const BASE_URL = `http://localhost:${PORT}`;
-const BASE_URL = `http://${process.env.DOMAIN}:${PORT}`;
+const BASE_URL = `http://${DOMAIN}:${PORT}`;
 
 // Define __dirname manually
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
