@@ -29,8 +29,8 @@ const createRequest = async (userId) => {
     userId: `userId${userId}`,
     language: "hardhat",
     files: [
-      { target_path: "contracts/contract.sol", contract_source_code },
-      { target_path: "test/contract.test.js", test_source_code },
+      { target_path: "contracts/contract.sol", source_code: contract_source_code },
+      { target_path: "test/contract.test.js", source_code: test_source_code },
     ],
     ifTest: true,
   };

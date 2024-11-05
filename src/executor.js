@@ -1,7 +1,6 @@
 import { exec, execSync } from "child_process";
 import fs from "fs";
 import path from "path";
-import { assert } from "chai";
 import { fileURLToPath } from "url";
 
 // Define __dirname manually
@@ -42,7 +41,7 @@ export function executeCode(
   fs.cpSync(hardhatBaseDir, tempDir, { recursive: true });
 
   // Write the source code to a file
-  for (let i = 0; i < files; i++) {
+  for (let i = 0; i < files.length; i++) {
     const { target_path, source_code } = files[i];
     const filePath = path.join(tempDir, target_path);
     fs.writeFileSync(filePath, source_code);
@@ -57,9 +56,6 @@ export function executeCode(
       "dir"
     );
   }
-
-  let command = `cd ${tempDir} && npx hardhat compile`;
-  // if (runTest) command += ` && npx hardhat test`;
 
   let response = {
     status: 0,
