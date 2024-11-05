@@ -5,6 +5,9 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const PORT = process.env.PORT || 2358;
+const DOMAIN = process.env.DOMAIN || `localhost`;
+// const BASE_URL = `http://localhost:${PORT}`;
+const BASE_URL = `http://${DOMAIN}:${PORT}`;
 
 // Define __dirname manually
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -24,8 +27,8 @@ const createRequest = async (userId) => {
     userId: `userId${userId}`,
     language: "hardhat",
     files: [
-      { target_path: "contracts/contract.sol", contract_source_code },
-      { target_path: "test/contract.test.js", test_source_code },
+      { target_path: "contracts/contract.sol", source_code: contract_source_code },
+      { target_path: "test/contract.test.js", source_code: test_source_code },
     ],
     ifTest: true,
   };
@@ -33,7 +36,7 @@ const createRequest = async (userId) => {
   const startTime = Date.now();
 
   try {
-    const response = await fetch(`http://localhost:${PORT}/api/execute`, {
+    const response = await fetch(`${BASE_URL}/api/execute`, {
       body: JSON.stringify(req),
       method: "POST",
       headers: {
