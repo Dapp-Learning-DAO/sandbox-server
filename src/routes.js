@@ -5,6 +5,16 @@ import { executeCode } from "./executor.js";
 
 const router = express.Router();
 
+router.get("/languages", (req, res) => {
+  const supportedLanguages = [
+    {
+      id: 1,
+      language: "hardhat",
+    },
+  ];
+  res.json(supportedLanguages);
+});
+
 // POST route to handle code submissions
 router.post("/execute", async (req, res) => {
   try {
